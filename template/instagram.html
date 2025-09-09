@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>[TOOLFB.VN] Tạo tài khoản Instagram</title>
+        <link href="../public/css/sweetalert2.min.css" rel="stylesheet">
+        <link href="../public/css/bootstrap.min.css" rel="stylesheet">
+        <link href="../public/css/remixicon.css" rel="stylesheet">
+        <link href="../public/css/style.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+        <script src="../public/js/jquery.js"></script>
+        
+    </head>
+    <body>
+
+
+        <style>
+            body {
+                overflow: hidden;
+            }
+            #app {
+                padding: 40px 10px 10px 10px;
+                background-image: linear-gradient(115deg, rgb(98, 40, 215), rgb(238, 42, 123), rgb(249, 206, 52));
+            }
+            .account-wrapper {
+                border-radius: 0;
+                width: 100%;
+                height: calc(100vh - 50px);
+            }
+            #header {
+                height: 40px
+            }
+            .cardItem:not(:last-child) {
+                margin-bottom: 10px;
+            }
+            #adPanel {
+                background: #fff;
+                width: 400px;
+                margin-left: 10px;
+            }
+        </style>
+
+        <!-- <div id="loadingScreen" class="d-flex align-items-center justify-content-center">
+            <div class="spinner-border text-secondary" role="status"></div>
+        </div> -->
+        <div id="app">
+            <div id="header">
+                <div class="header-top d-flex align-items-center justify-content-between">
+                    <span class="titleBar fw-medium">[TOOLFB.VN] Tạo tài khoản Instagram</span>
+                    <div class="titleBarButtons d-flex align-items-center">
+                        <button type="button" id="minimize" onclick="minimizeApp()" type="button"><i class="ri-subtract-line"></i></button>
+                        <button type="button" id="unmaximize" class="d-none" onclick="unmaximizeApp()" type="button"><i class="ri-file-copy-line"></i></button>
+                        <button type="button" id="maximize" onclick="maximizeApp()" type="button"><i class="ri-stop-line"></i></button>
+                        <button type="button" id="close" onclick="closeApp()" type="button"><i class="ri-close-line"></i></button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="d-flex">
+                <div class="account-wrapper bg-white rounded d-flex flex-column overflow-hidden flex-grow-1">
+                    <div class="d-flex border-bottom justify-content-between py-3 px-3" style="height: 67px">
+
+                            <div class="d-flex">
+                                <button type="button" class="shadow-sm control-btn btn border h-100 me-3" id="start" onclick="run()">
+                                    <i class="ri-play-fill" style="background-color: #4caf50;"></i>
+                                    Bắt đầu
+                                </button>
+                                <button type="button" class="shadow-sm control-btn btn border h-100 me-3 d-none" id="stop" onclick="stop()">
+                                    <i class="ri-stop-fill" style="background-color: #f44336;"></i>
+                                    Dừng lại
+                                </button>
+                            </div>
+
+                        <div data-tool="instagram">
+                            <div class="d-inline-flex ms-3">
+                                <div class="position-relative">
+                                    <label class="position-absolute fw-medium" style="font-size: 12px; top: 6px; left: 7px;">Luồng</label>
+                                    <input type="number" name="limit" class="form-control" style="padding-left:50px; width: 130px;" value="">
+                                </div>
+                            </div>
+
+                            <div class="d-inline-flex ms-3">
+                                <div class="position-relative">
+                                    <label class="position-absolute fw-medium" style="font-size: 12px; top: 6px; left: 7px;">Delay</label>
+                                    <input type="number" name="delay" class="form-control" style="padding-left:50px; width: 130px;" value="">
+                                </div>
+                            </div>
+
+                            <div class="d-inline-flex ms-3">
+                                <div class="position-relative">
+                                    <label class="position-absolute fw-medium" style="font-size: 12px; top: 6px; left: 7px;">Repeat</label>
+                                    <input type="number" name="repeat" class="form-control" style="padding-left:50px; width: 130px;" value="20">
+                                </div>
+                            </div>
+
+                            <div class="d-inline-flex ms-3">
+                                <div class="position-relative">
+                                    <select class="form-select" name="mode">
+                                        <option value="request">Request</option>
+                                        <option value="request2">Request2</option>
+                                        <option value="request3">Request3</option>
+                                        <option value="browser">Browser</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="d-flex align-items-center border px-3 rounded">
+                            <span class="border-end me-2 pe-2">
+                                <strong>Thành công: </strong>
+                                <span id="instaSuccess" class="ms-2 badge text-bg-success">0</span>
+                            </span>
+                            <span class="pe-2">
+                                <strong>Thất bại:</strong> 
+                                <span id="instaError" class="ms-2 badge text-bg-danger">0</span>
+                            </span>
+                        </div>
+                        
+                        <!-- <div class="flex-grow-1 px-3">
+                            <div class="position-relative h-100">
+                                <a href="javascript:;" id="searchSubmit" class="text-dark"><i class="ri-search-line fs-5 position-absolute" style="top: 3px; right: 8px"></i></a>
+                                <input class="form-control h-100 fw-medium" style="padding-right: 30px;" id="search" placeholder="Nhập từ khóa...">
+                            </div>
+                        </div>
+                        <div class="d-flex --border-end">
+                            <button type="button" class="shadow-sm control-btn me-2 btn border px-2 h-100" data-bs-toggle="modal" data-bs-target="#customizeModal">
+                                <i class="ri-layout-line fs-5 m-0" style="color: #666"></i>
+                            </button>
+                            <button type="button" class="shadow-sm control-btn btn border px-2 h-100" data-bs-toggle="modal" data-bs-target="#customizeModal">
+                                <i class="ri-equalizer-line fs-5 m-0" style="color: #666"></i>
+                            </button>
+                        </div> -->
+                    </div>
+
+                    <div id="accounts" class="ag-theme-balham flex-grow-1 h-100"></div>
+
+                    <div class="border-top p-3 py-2 d-flex justify-content-between" style="height: 55px;">
+                        <div class="d-flex align-items-center border px-3 rounded">
+                            <span class="border-end me-3 pe-3">
+                                <strong>Tổng: </strong>
+                                <span id="tong" class="ms-2 badge text-bg-secondary">0</span>
+                            </span>
+                            <span class="border-end me-3 pe-3">
+                                <strong>Đã chọn:</strong> 
+                                <span id="dachon" class="ms-2 badge text-bg-secondary">0</span>
+                            </span>
+                            <span>
+                                <strong>Bôi đen:</strong> 
+                                <span id="boiden" class="ms-2 badge text-bg-secondary">0</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div id="adPanel" class="rounded border-start p-1" data-tool="ad">
+
+                    <div class="overflow-auto p-2" style="height: calc(100vh - 57px);">
+
+                        
+
+                    </div>
+
+                </div> -->
+            </div>
+        </div>
+
+        <!--script src="https://cdn.jsdelivr.net/npm/ag-grid-community/dist/ag-grid-community.min.js"></script-->
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+        <script src="../public/js/sortable.min.js"></script>
+        <script src="../public/js/sweetalert2.all.min.js"></script>
+        <script src="../public/js/ag-grid-enterprise.min.js"></script>
+        <script src="../public/js/bootstrap.bundle.min.js"></script>
+        <script src="../public/js/contextmenu.js"></script>
+        <script src="../public/lang/vi.js"></script>
+        <script src="../public/js/instagram.js"></script>
+        <script src="../public/js/core.js"></script>
+    </body>
+</html>
